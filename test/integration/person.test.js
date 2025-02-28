@@ -36,15 +36,15 @@ describe("Teste de Pessoas", () => {
         expect(updtPerson.name).toBe(person.name)
          
     })
-    /*it("should delete an person", async () =>{
+    it("should delete an person", async () =>{
         const person = {
-            id: this.personId
+            id: this.id
         }
         
-        const response = await servicePerson.Delete(person.id, person.name, person.address, this.transaction)
+        const response = await servicePerson.Delete(person.id, this.transaction)
 
             expect(response).toBe(true)
         })
-        */     
+             
     
 })

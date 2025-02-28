@@ -1,4 +1,7 @@
 const user = require("../model/user")
+const jwt = require("jsonwebtoken")
+
+const secretKey = "M!nh4S3nh4Secreta"
 
 class ServiceUser {
     async FindAll(transaction) {
@@ -35,6 +38,25 @@ class ServiceUser {
         user.destroy({ transaction })
 
         return true
+    }
+    async Login(email, password) {
+        if (!email) {
+            throw new Error("Favor informar o email")
+        } else if (!password) {
+            throw new Error("Favor informar a senha")
+        }
+        const currentUser = await user.findOne({ where: { email }})
+
+        if(!currentUser){
+            throw new Error("Email ou senha inválidos")
+        }
+
+        if(password === currentUser.password){
+            return jwt.sign({ id: currentUser.id }, secretKey, { expiresIn: 60 * 60}) 
+        }
+        
+        throw new Error("Email ou senha inválidos")
+        
     }
 }
 

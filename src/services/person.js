@@ -7,7 +7,7 @@ class ServicePerson {
     }
 
     async FindById(id, transaction){
-        return person.findByPk(id, { include: { model: user } }, { transaction })
+        return person.findByPk(id, { include: { model: user }, transaction })
     }
 
     async Create(name, address, userId, transaction) {
@@ -24,9 +24,9 @@ class ServicePerson {
     async Update(id, name, address, transaction) {
         const odlPerson = await this.FindById(id, transaction)
 
-        if (!odlPerson) {
+        /*if (!odlPerson) {
             throw new Error("Pessoa não encontrada");
-        }
+        }*/
 
         odlPerson.name = name || odlPerson.name
         odlPerson.address = address || odlPerson.address
